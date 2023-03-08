@@ -161,7 +161,6 @@ pop(ele);	//删除栈顶元素
 top();	//返回栈顶元素
 empty();	//判断堆栈是否为空
 size();	//返回栈的元素个数
-
 ```
 
 ### queue
@@ -253,11 +252,165 @@ set与unordered_set的区别：
 
 不对插入集合内的数据进行排序
 
+### pair 
 
+```c++
+pair<type, type> p(val_1,val_2);
+pair<type, type> p=make_pair(val_1,val_2);
+```
+
+### map
+
+map 利用仿函数进行排序
+
+```c++
+map<T1,T2> m;	//默认构造函数
+map(const map &m);	//拷贝构造函数
+map& operator=(const map &m);	//重载等号操作符
+size();	//返回容器中元素的个数
+empty();	//判断容器是否为空
+swap();	//交换两个容器
+insert(ele);	//在容器插入元素ele
+clear();	//清空所有元素
+erase(pos);	//删除pos迭代器所指的元素，返回下个元素的迭代器
+erase(begin,end);	//删除[begin,end)区间的所有元素，返回下个元素的迭代器
+earse();	//删除容器中值为key的元素
+find(key);	//查找key是否存在，若存在，返回改建元素的迭代器，若不存在，返回set.end()
+count(key);	//统计key的元素的个数
+```
+
+## 函数对象
+
+### 函数对象
+
+函数对象概念
+
+重载函数调用操作符的类，其对象常称为函数对象
+
+函数对象使用重载的函数时，行为类似于函数的调用，也叫仿函数
+
+本质：函数对象（仿函数）是一个类，不是一个函数
+
+```c++
+class MyAdd{
+public :
+	int operator()(int v1,int v2){
+		return v1 + v2;
+	}
+};
+```
+
+###  谓词
+
+返回bool类型的仿函数称为函数
+
+如果operator() 接受一个参数，那么叫做一元谓词
+
+如果operator() 接受两个参数，那么叫做二元谓词
+
+### 内建函数对象
+
+STL内建了一些函数对象
+
+分类：
+
+- 算术仿函数
+- 关系仿函数
+- 逻辑仿函数
+
+用法：
+
+- 这些仿函数所产生的对象，用法和一般函数完全相同
+- 使用内建函数对象，需要引入头文件 #include <functional>
+
+### TODO 这个地方有点小难理解
 
 ### algorithm
 
 ```c++
 sort(iterator begin,iterator end);	//对[begin,end)区间内的元素进行排序
 ```
+
+
+
+
+
+
+
+
+
+-----
+
+## STL 常用算法
+
+算法主要是由头文件<algorithm> <functional> <numeric>组成，一般使用 <algorithm>
+
+### 遍历算法
+
+```c++
+for_each(iterator begin,iterator end,_func);	//遍历[begin,end)中的元素，并执行函数_func;
+transform(iterator begin_1,iterator end_1,iterator begin_2,_func);	//搬运元素，需要提前开辟空间，并执行_func
+```
+
+### 查找算法
+
+```c++
+find(iterator begin,iterator end,value);	//查找value，找到，返回目标迭代器，找不到，返回末尾迭代器	查找目标元素
+find_if(itrator begin,iterator end,_Pred);	//_Pred 函数或者谓词，（返回bool类型的仿函数）	查找符合条件的元素
+adjacent_find(iterator begin,iterator end);	//查找相邻元素，返回相邻元素的第一个位置的迭代器
+bool binary_search(iterator begin,iterator end,value);	//查找value，有true，无false，只是用于有序容器
+count(iterator begin,iterator end,value);	//统计元素出现次数
+count_if(iterator begin,iterator end,_Pred);	//统计符合条件的元素个数
+```
+
+### 常用排序算法
+
+```c++
+sort(iterator begin,iterator end,_Pred);	//将[begin,end)区间的元素元素，按照规则进行排序
+randrom_shuffle(iterator begin,iterator end);	//随机打乱[begin,end)中的元素
+merge(iterator beg1,iterator end1,iterator beg2,iterator end2,iterator dest);	//容器元素合并，并存储到另一个容器中，两个容器必须是有序的
+reverse(iterator begin,iterator end);	//反转[begin,end)的元素
+```
+
+### 常用拷贝和替换算法
+
+```c++
+copy(iterator begin,iterator end,iterator dest);	//将容器内指定范围的元素拷贝到另一个元素中
+replace(iterator begin,iterator end,oldvalue,newvalue);	//将区间的旧元素，修改成新元素
+replace_if(iterator begin,iterator end,_Pred,newvalue);	//符合条件的元素替换成newvalue
+swap(container c1,container c2);	//互换两个容器的元素
+```
+
+### 常用算术生成算法
+
+- 算法生成算法属于小型算法，使用时包含的头文件为 **#include <numeric>**
+
+```c++
+accumulate(iterator begin,iterator end,value);	//计算容器中元素的累计总和，放到value上
+fill(iterator begin,iterator end,value);	//向容器中填充value
+```
+
+### 常用集合算法
+
+```c++
+set_intersection(iterator beg1,iterator end1,iterator beg2,iterator end2,iterator dest);	//求两个集合的交集	两个集合必须是有序序列
+set_union(iterator beg1,iterator end1,iterator beg2,iterator end2,iterator dest);	//求两个集合的并集	两个集合必须是有序序列
+set_difference(iterator beg1,iterator end1,iterator beg2,iterator end2,iterator dest);	//求两个集合的差集 两个集合必须是有序序列
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
