@@ -92,7 +92,7 @@ vector(v.begin(),v.end());	//将v[being(),end()]区间中的元素拷贝给本�
 vector(n,elem);	//构造函数将n个elem拷贝给本身
 vector(const vector &vec);	//拷贝构造函数
 vector& operator=(const vector &vec);	//重载等号操作符
-assign(beg,end);	//将[beg,end]区间中的数据拷贝赋值给本身
+assign(beg,end);	//将[beg,end)区间中的数据拷贝赋值给本身
 assign(n,elem);	//将n个elem拷贝赋值给本身
 empty();	//判断容器是否为空
 capacity();	//容器的容量
